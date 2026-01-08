@@ -1,176 +1,175 @@
-‏<!DOCTYPE html>
-‏<html lang="ar" dir="rtl">
-‏<head>
-‏    <meta charset="UTF-8">
-‏    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-‏    <title>بمناسبة السنة الجديدة 2026</title>
-‏    <style>
-‏        :root { --main-red: #d4001d; --dark-red: #800000; }
-‏        body {
-‏            margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-‏            background: linear-gradient(135deg, var(--main-red), var(--dark-red));
-‏            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
-‏            color: white; display: flex; justify-content: center; align-items: center;
-‏            height: 100vh; overflow: hidden; text-align: center; position: relative;
-‏        }
-‏        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
-‏
-‏        .heart { position: absolute; color: rgba(255, 255, 255, 0.6); animation: fall linear forwards; z-index: 1; pointer-events: none; }
-‏        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-‏
-‏        .container {
-‏            background: rgba(255, 255, 255, 0.18); padding: 25px; border-radius: 25px;
-‏            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px);
-‏            width: 88%; max-width: 400px; border: 1.5px solid rgba(255, 255, 255, 0.3);
-‏            z-index: 10; overflow-y: auto; max-height: 92vh; transition: all 0.5s;
-‏        }
-‏        .tree-icon { font-size: 55px; margin-bottom: 10px; animation: pulse 2s infinite; }
-‏        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-‏        
-‏        input[type="tel"] {
-‏            padding: 14px; width: 85%; border-radius: 30px; border: 2px solid white;
-‏            background: rgba(255, 255, 255, 0.1); color: white; text-align: center; font-size: 20px;
-‏            margin-bottom: 20px; outline: none; transition: 0.3s;
-‏        }
-‏        input:focus { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 15px white; }
-‏
-‏        button {
-‏            padding: 14px 40px; background: white; border: none; color: var(--main-red);
-‏            border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 17px;
-‏            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); transition: 0.4s;
-‏        }
-‏        button:hover { background: #ffebeb; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4); }
-‏
-‏        #story-screen, #gallery-screen { display: none; }
-‏        .fade-in { animation: fadeIn 1s ease-in-out forwards; }
-‏        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-‏        
-‏        .img-wrapper { position: relative; margin-top: 15px; overflow: hidden; border-radius: 15px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-‏        img { width: 100%; height: auto; max-height: 280px; object-fit: cover; display: block; }
-‏        
-‏        .photo-text { margin-top: 18px; font-weight: 600; font-size: 17px; line-height: 1.7; min-height: 90px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-‏        .progress { font-size: 13px; margin-top: 12px; opacity: 0.9; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 15px; }
-‏        .floating-heart { position: fixed; bottom: 20px; right: 20px; font-size: 30px; animation: heartbeat 1.5s infinite; z-index: 100; }
-‏        @keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
-‏    </style>
-‏</head>
-‏<body>
-‏
-‏    <div class="floating-heart">💖</div>
-‏
-‏    <div id="login-screen" class="container">
-‏        <div class="tree-icon">🎄</div>
-‏        <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
-‏        <h1>اكتبي كلمة السر (1111) ✨</h1>
-‏        <input type="tel" id="passInput" placeholder="الباسورد">
-‏        <br>
-‏        <button onclick="checkPass()">🔓 افتح الحكاية</button>
-‏    </div>
-‏
-‏    <div id="story-screen" class="container">
-‏        <h1 style="color: #ffcccc; text-shadow: 0 0 10px rgba(255,255,255,0.5);">حبيبتي فاطمة ❤️</h1>
-‏        <p style="font-size: 18px;">كل سنة وإحنا سوا وبخير يا أغلى ما عندي في الدنيا.. حبيت أجمع لك شوية ذكريات في بداية 2026 ❤️</p>
-‏        <button onclick="showGallery()">📸 نبدأ الذكريات</button>
-‏    </div>
-‏
-‏    <div id="gallery-screen" class="container">
-‏        <h2 style="margin-top:0; color: #ffcccc;">ذكرياتنا الجميلة ❤️</h2>
-‏        <div class="img-wrapper">
-‏            <img id="mainPhoto" src="ck.jpg">
-‏        </div>
-‏        <p id="mainText" class="photo-text"></p>
-‏        <div id="photoProgress" class="progress">الصورة 1 من 7</div>
-‏        <br>
-‏        <button onclick="nextPhoto()" style="margin-top:10px;">التالي ⮕</button>
-‏    </div>
-‏
-‏    <script>
-‏        function createHeart() {
-‏            const heart = document.createElement('div');
-‏            heart.classList.add('heart');
-‏            heart.innerHTML = '❤️';
-‏            heart.style.left = Math.random() * 100 + "vw";
-‏            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-‏            heart.style.fontSize = Math.random() * 20 + 15 + "px";
-‏            heart.style.opacity = Math.random();
-‏            document.body.appendChild(heart);
-‏            setTimeout(() => heart.remove(), 6000);
-‏        }
-‏        setInterval(createHeart, 400);
-‏
-‏        const correctPass = "1111";
-‏        
-‏        const photos = [
-‏            { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5، بس مش هقولك اليوم، المفروض إنتي عارفاه! 😂❤️" },
-‏            { src: "ck1.jpg", text: "توتة.. الاسم ده هو النغمة اللي قلبي بيطمن لما يسمعها، وأرق كلمة ممكن لساني ينطقها.. بحس إن كل الحنية اتجمعت في حروف اسمك، وكأن ربنا خلقه مخصوص عشان يكون أحلى اسم في حياتي ❤️" },
-‏            { src: "ck2.jpg", text: "يا فاطمة.. عارفة إني بحب كل حاجة فيكي، حتى عصبيتك اللي بتقفل ودنك عني دي! بتبقى شكلك زي الطفلة اللي زعلانة، وفي عز نرفزتك بكون أنا غرقان في تفاصيلك وبقول في سري: يا بختي إن النكدية دي هي حبيبتي 😂❤️" },
-‏            { src: "ck3.jpg", text: "يا فاطمة.. كان نفسي الصورة دي تنطق عشان أقولك إن دي هي حياتي اللي بحلم بيها معاكي.. ❤️" },
-‏            { src: "ck4.jpg", text: "حضني دايماً هيكون هو بيتك وأمانك، والمكان اللي ترمي فيه كل تعبك وتطمني. حياتي معاكي مش هتبقى مجرد أيام بتعدي، هتبقى عبارة عن حضن واحد طويل بيجمعنا، ينسينا الدنيا ويطمن قلبي وقلبك ❤️" },
-‏            { src: "ck5.jpg", text: "يا فاطمة.. يونس هو الحلم اللي بيجمعنا، والوعد اللي هيخلينا نتخطى أي زعل.. إنتي الحلم، وأم الحلم ده ❤️" },
-‏            { src: "ck6.jpg", text: "يا توتة.. حبيت أختم بصورة أكتر فاكهة بتحبيها، عشان أقولك إن حياتي معاكي بقت بطعم الخوخ.. مسكرة بوجودك، وكلها حنية زيك ❤️" }
-‏        ];
-‏        
-‏        let currentPhotoIndex = 0;
-‏
-‏        function checkPass() {
-‏            const input = document.getElementById('passInput').value.trim();
-‏            if(input === correctPass) {
-‏                document.getElementById('login-screen').style.display = 'none';
-‏                document.getElementById('story-screen').style.display = 'block';
-‏                document.getElementById('story-screen').classList.add('fade-in');
-‏            } else { 
-‏                alert("كلمة السر غلط! ركزي يا توتة وجربي 1111"); 
-‏            }
-‏        }
-‏
-‏        function showGallery() {
-‏            document.getElementById('story-screen').style.display = 'none';
-‏            document.getElementById('gallery-screen').style.display = 'block';
-‏            document.getElementById('gallery-screen').classList.add('fade-in');
-‏            typeWriter(photos[0].text);
-‏        }
-‏
-‏        function typeWriter(text) {
-‏            let i = 0;
-‏            const speed = 40; 
-‏            const target = document.getElementById("mainText");
-‏            target.innerHTML = "";
-‏            function type() {
-‏                if (i < text.length) {
-‏                    target.innerHTML += text.charAt(i);
-‏                    i++;
-‏                    setTimeout(type, speed);
-‏                }
-‏            }
-‏            type();
-‏        }
-‏
-‏        function nextPhoto() {
-‏            currentPhotoIndex++;
-‏            const photoImg = document.getElementById('mainPhoto');
-‏            const photoProg = document.getElementById('photoProgress');
-‏
-‏            if(currentPhotoIndex < photos.length) {
-‏                photoImg.classList.remove('fade-in');
-‏                void photoImg.offsetWidth; // Trigger reflow
-‏                photoImg.src = photos[currentPhotoIndex].src;
-‏                photoImg.classList.add('fade-in');
-‏                
-‏                typeWriter(photos[currentPhotoIndex].text);
-‏                photoProg.innerText = `الصورة ${currentPhotoIndex + 1} من ${photos.length}`;
-‏                
-‏                if(currentPhotoIndex === photos.length - 1) {
-‏                    for(let i=0; i<30; i++) { setTimeout(createHeart, i*80); }
-‏                }
-‏            } else {
-‏                alert("دي كانت ذكرياتنا.. وكل سنة وأنتي طيبة يا أغلى من عيني ❤️");
-‏                currentPhotoIndex = 0;
-‏                photoImg.src = photos[0].src;
-‏                typeWriter(photos[0].text);
-‏                photoProg.innerText = `الصورة 1 من ${photos.length}`;
-‏            }
-‏        }
-‏    </script>
-‏</body>
-‏</html>
-‏
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بمناسبة السنة الجديدة 2026</title>
+    <style>
+        :root { --main-red: #d4001d; --dark-red: #800000; }
+        body {
+            margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--main-red), var(--dark-red));
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            color: white; display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden; text-align: center; position: relative;
+        }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+
+        .heart { position: absolute; color: rgba(255, 255, 255, 0.6); animation: fall linear forwards; z-index: 1; pointer-events: none; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+
+        .container {
+            background: rgba(255, 255, 255, 0.18); padding: 25px; border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px);
+            width: 88%; max-width: 400px; border: 1.5px solid rgba(255, 255, 255, 0.3);
+            z-index: 10; overflow-y: auto; max-height: 92vh; transition: all 0.5s;
+        }
+        .tree-icon { font-size: 55px; margin-bottom: 10px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        input[type="tel"] {
+            padding: 14px; width: 85%; border-radius: 30px; border: 2px solid white;
+            background: rgba(255, 255, 255, 0.1); color: white; text-align: center; font-size: 20px;
+            margin-bottom: 20px; outline: none; transition: 0.3s;
+        }
+        input:focus { background: rgba(255, 255, 255, 0.2); box-shadow: 0 0 15px white; }
+
+        button {
+            padding: 14px 40px; background: white; border: none; color: var(--main-red);
+            border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 17px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); transition: 0.4s;
+        }
+        button:hover { background: #ffebeb; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4); }
+
+        #story-screen, #gallery-screen { display: none; }
+        .fade-in { animation: fadeIn 1s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .img-wrapper { position: relative; margin-top: 15px; overflow: hidden; border-radius: 15px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        img { width: 100%; height: auto; max-height: 280px; object-fit: cover; display: block; }
+        
+        .photo-text { margin-top: 18px; font-weight: 600; font-size: 17px; line-height: 1.7; min-height: 90px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .progress { font-size: 13px; margin-top: 12px; opacity: 0.9; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 15px; }
+        .floating-heart { position: fixed; bottom: 20px; right: 20px; font-size: 30px; animation: heartbeat 1.5s infinite; z-index: 100; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="floating-heart">💖</div>
+
+    <div id="login-screen" class="container">
+        <div class="tree-icon">🎄</div>
+        <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
+        <h1>اكتبي كلمة السر (1111) ✨</h1>
+        <input type="tel" id="passInput" placeholder="الباسورد">
+        <br>
+        <button onclick="checkPass()">🔓 افتح الحكاية</button>
+    </div>
+
+    <div id="story-screen" class="container">
+        <h1 style="color: #ffcccc; text-shadow: 0 0 10px rgba(255,255,255,0.5);">حبيبتي فاطمة ❤️</h1>
+        <p style="font-size: 18px;">كل سنة وإحنا سوا وبخير يا أغلى ما عندي في الدنيا.. حبيت أجمع لك شوية ذكريات في بداية 2026 ❤️</p>
+        <button onclick="showGallery()">📸 نبدأ الذكريات</button>
+    </div>
+
+    <div id="gallery-screen" class="container">
+        <h2 style="margin-top:0; color: #ffcccc;">ذكرياتنا الجميلة ❤️</h2>
+        <div class="img-wrapper">
+            <img id="mainPhoto" src="ck.jpg">
+        </div>
+        <p id="mainText" class="photo-text"></p>
+        <div id="photoProgress" class="progress">الصورة 1 من 7</div>
+        <br>
+        <button onclick="nextPhoto()" style="margin-top:10px;">التالي ⮕</button>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            heart.style.fontSize = Math.random() * 20 + 15 + "px";
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 400);
+
+        const correctPass = "1111";
+        
+        const photos = [
+            { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5، بس مش هقولك اليوم، المفروض إنتي عارفاه! 😂❤️" },
+            { src: "ck1.jpg", text: "توتة.. الاسم ده هو النغمة اللي قلبي بيطمن لما يسمعها، وأرق كلمة ممكن لساني ينطقها.. بحس إن كل الحنية اتجمعت في حروف اسمك، وكأن ربنا خلقه مخصوص عشان يكون أحلى اسم في حياتي ❤️" },
+            { src: "ck2.jpg", text: "يا فاطمة.. عارفة إني بحب كل حاجة فيكي، حتى عصبيتك اللي بتقفل ودنك عني دي! بتبقى شكلك زي الطفلة اللي زعلانة، وفي عز نرفزتك بكون أنا غرقان في تفاصيلك وبقول في سري: يا بختي إن النكدية دي هي حبيبتي 😂❤️" },
+            { src: "ck3.jpg", text: "يا فاطمة.. كان نفسي الصورة دي تنطق عشان أقولك إن دي هي حياتي اللي بحلم بيها معاكي.. ❤️" },
+            { src: "ck4.jpg", text: "حضني دايماً هيكون هو بيتك وأمانك، والمكان اللي ترمي فيه كل تعبك وتطمني. حياتي معاكي مش هتبقى مجرد أيام بتعدي، هتبقى عبارة عن حضن واحد طويل بيجمعنا، ينسينا الدنيا ويطمن قلبي وقلبك ❤️" },
+            { src: "ck5.jpg", text: "يا فاطمة.. يونس هو الحلم اللي بيجمعنا، والوعد اللي هيخلينا نتخطى أي زعل.. إنتي الحلم، وأم الحلم ده ❤️" },
+            { src: "ck6.jpg", text: "يا توتة.. حبيت أختم بصورة أكتر فاكهة بتحبيها، عشان أقولك إن حياتي معاكي بقت بطعم الخوخ.. مسكرة بوجودك، وكلها حنية زيك ❤️" }
+        ];
+        
+        let currentPhotoIndex = 0;
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value.trim();
+            if(input === correctPass) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('story-screen').style.display = 'block';
+                document.getElementById('story-screen').classList.add('fade-in');
+            } else { 
+                alert("كلمة السر غلط! ركزي يا توتة وجربي 1111"); 
+            }
+        }
+
+        function showGallery() {
+            document.getElementById('story-screen').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'block';
+            document.getElementById('gallery-screen').classList.add('fade-in');
+            typeWriter(photos[0].text);
+        }
+
+        function typeWriter(text) {
+            let i = 0;
+            const speed = 40; 
+            const target = document.getElementById("mainText");
+            target.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex++;
+            const photoImg = document.getElementById('mainPhoto');
+            const photoProg = document.getElementById('photoProgress');
+
+            if(currentPhotoIndex < photos.length) {
+                photoImg.classList.remove('fade-in');
+                void photoImg.offsetWidth; // Trigger reflow
+                photoImg.src = photos[currentPhotoIndex].src;
+                photoImg.classList.add('fade-in');
+                
+                typeWriter(photos[currentPhotoIndex].text);
+                photoProg.innerText = `الصورة ${currentPhotoIndex + 1} من ${photos.length}`;
+                
+                if(currentPhotoIndex === photos.length - 1) {
+                    for(let i=0; i<30; i++) { setTimeout(createHeart, i*80); }
+                }
+            } else {
+                alert("دي كانت ذكرياتنا.. وكل سنة وأنتي طيبة يا أغلى من عيني ❤️");
+                currentPhotoIndex = 0;
+                photoImg.src = photos[0].src;
+                typeWriter(photos[0].text);
+                photoProg.innerText = `الصورة 1 من ${photos.length}`;
+            }
+        }
+    </script>
+</body>
+</html>
