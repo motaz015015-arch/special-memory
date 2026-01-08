@@ -1,52 +1,48 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حكاية أم يونس - 2026</title>
+    <title>Special Memory</title>
     <style>
-        body { 
-            background: linear-gradient(135deg, #ff4e50, #f9d423); 
-            margin: 0; font-family: Arial, sans-serif; color: white;
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-        }
-        .card { 
-            background: #ffffff; padding: 30px; border-radius: 20px; 
-            width: 85%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        h2 { color: #d63031; margin-bottom: 10px; font-size: 26px; font-weight: bold; }
-        p { color: #2d3436; font-weight: bold; font-size: 18px; margin-bottom: 5px; }
-        input { 
-            padding: 15px; border-radius: 12px; border: 2px solid #ff4e50; 
-            width: 90%; margin: 20px 0; text-align: center; font-size: 22px; color: #2d3436;
-            background-color: #fff5f5;
-        }
-        button { 
-            padding: 15px; border-radius: 12px; border: none; 
-            background: #ff4e50; color: white; font-size: 20px; font-weight: bold; width: 100%;
-            cursor: pointer; transition: 0.3s;
-        }
-        button:active { background: #c0392b; transform: scale(0.98); }
-        #content { display: none; text-align: center; padding: 20px; width: 100%; }
-        h1 { font-size: 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        img { width: 100%; max-width: 500px; border-radius: 15px; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        body { background: #ff4e50; text-align: center; font-family: sans-serif; color: white; padding: 20px; }
+        .box { background: #000; padding: 30px; border-radius: 20px; margin-top: 50px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        h2 { color: #ff4e50; margin-bottom: 20px; }
+        input { padding: 15px; width: 85%; border-radius: 10px; border: none; font-size: 22px; text-align: center; margin-bottom: 20px; color: #000; }
+        button { padding: 15px; width: 95%; background: #ff4e50; color: white; border: none; border-radius: 10px; font-size: 20px; font-weight: bold; cursor: pointer; }
+        #gift { display: none; }
+        img { width: 100%; border-radius: 15px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
-    <div id="login">
-        <div class="card">
-            <span style="font-size: 60px;">🍑</span>
+    <div id="lock">
+        <div class="box">
             <h2>Welcome Umm Yunus ❤️</h2>
-            <p>اكتبي كلمة السر يا أم يونس علشان نبدأ السنة الجديدة ✨</p>
-            <input type="number" id="pass" placeholder="أدخلي الرقم هنا (1505)">
-            <button onclick="check()">افتحي قلبك هنا 🔓</button>
+            <p>اكتبي كلمة السر الجديدة (1111)</p>
+            <input type="number" id="passInput" placeholder="1111">
+            <button onclick="checkPass()">افتحي قلبك هنا 🔓</button>
         </div>
     </div>
 
-    <div id="content">
-        <h1>كل سنة وأنتي طيبة يا ست الكل ❤️</h1>
-        <img src="ck1.jpg" alt="Memory 1">
-        <img src="ck2.jpg" alt="Memory 2">
-        <img src="ck3.jpg" alt="Memory 3">
-        <p style="margin-top:
+    <div id="gift">
+        <h1 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.5);">كل سنة وأنتي طيبة يا ست الكل ❤️</h1>
+        <img src="ck1.jpg">
+        <img src="ck2.jpg">
+        <img src="ck3.jpg">
+    </div>
+
+    <script>
+        function checkPass() {
+            var val = document.getElementById('passInput').value;
+            // كلمة السر الجديدة هي 1111
+            if (val == "1111") {
+                document.getElementById('lock').style.display = 'none';
+                document.getElementById('gift').style.display = 'block';
+                window.scrollTo(0,0);
+            } else {
+                alert("الرقم غلط يا بطل! جرب 1111");
+            }
+        }
+    </script>
+</body>
+</html>
