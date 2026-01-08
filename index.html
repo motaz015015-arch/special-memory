@@ -6,68 +6,34 @@
     <title>بمناسبة السنة الجديدة</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #d4001d, #800000); 
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            text-align: center;
+            color: white; display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden; text-align: center;
         }
-
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            width: 85%;
-            max-width: 380px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
+            width: 85%; max-width: 380px; border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .tree-icon { font-size: 50px; margin-bottom: 10px; }
         .heart-icon { color: #ff4d4d; font-size: 30px; }
-        
         h1 { font-size: 22px; margin: 15px 0; }
-
         input[type="tel"] {
-            padding: 12px;
-            width: 85%;
-            border-radius: 25px;
-            border: 2px solid white;
-            background: transparent;
-            color: white;
-            text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
-            outline: none;
+            padding: 12px; width: 85%; border-radius: 25px; border: 2px solid white;
+            background: transparent; color: white; text-align: center; font-size: 18px;
+            margin-bottom: 20px; outline: none;
         }
-
-        input::placeholder { color: rgba(255, 255, 255, 0.7); }
-
         button {
-            padding: 12px 35px;
-            background-color: white;
-            border: none;
-            color: #d4001d;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
+            padding: 12px 35px; background-color: white; border: none; color: #d4001d;
+            border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 16px;
             transition: 0.3s;
         }
-
+        button:active { transform: scale(0.95); }
         #story-screen, #gallery-screen { display: none; }
-
         .fade-in { animation: fadeIn 0.8s forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 2px solid white; height: auto; object-fit: cover; }
+        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 2px solid white; height: auto; }
     </style>
 </head>
 <body>
@@ -75,8 +41,8 @@
     <div id="login-screen" class="container">
         <div class="tree-icon">🎄</div>
         <div class="heart-icon">❤️ Welcome</div>
-        <h1>اكتبي كلمة السر (1111) علشان تبدأ حكاية حب لا تُنسى ✨</h1>
-        <input type="tel" id="passInput" placeholder="اكتبي الباسورد هنا...">
+        <h1>اكتبي كلمة السر (1111) ✨</h1>
+        <input type="tel" id="passInput" placeholder="أدخلي الرقم هنا...">
         <br>
         <button onclick="checkPass()">🔒 افتح الحكاية</button>
     </div>
@@ -95,14 +61,14 @@
     </div>
 
     <script>
-        // كلمة السر المتفق عليها
+        // كلمة السر المطلوبة
         const correctPass = "1111"; 
 
-        // بيانات الصور المصححة
+        // بيانات الصور والرسائل المصححة
         const photos = [
-            { src: "ck1.jpg", text: "أول يوم عرفنا بعض" },
-            { src: "ck2.jpg", text: "حلمنا اللي حلمناه" },
-            { src: "ck3.jpg", text: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
+            { s: "ck1.jpg", t: "أول يوم عرفنا بعض" },
+            { s: "ck2.jpg", t: "حلمنا اللي حلمناه" },
+            { s: "ck3.jpg", t: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
         ];
         
         let currentPhotoIndex = 0;
@@ -113,8 +79,8 @@
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('story-screen').style.display = 'block';
                 document.getElementById('story-screen').classList.add('fade-in');
-            } else {
-                alert("كلمة السر خطأ! جرب 1111");
+            } else { 
+                alert("كلمة السر غلط! جربي 1111"); 
             }
         }
 
@@ -126,14 +92,19 @@
 
         function nextPhoto() {
             currentPhotoIndex++;
+            const photoImg = document.getElementById('photo');
+            const photoTxt = document.getElementById('photo-text');
+
             if(currentPhotoIndex < photos.length) {
-                document.getElementById('photo').src = photos[currentPhotoIndex].src;
-                document.getElementById('photo-text').innerText = photos[currentPhotoIndex].text;
+                // تحديث الصورة والنص
+                photoImg.src = photos[currentPhotoIndex].s;
+                photoTxt.innerText = photos[currentPhotoIndex].t;
             } else {
-                alert("دي كانت بعض ذكرياتنا.. والقادم أجمل سوا ❤️");
+                // رسالة النهاية والرجوع للبداية
+                alert("دي كانت ذكرياتنا.. والقادم أجمل سوا ❤️");
                 currentPhotoIndex = 0; 
-                document.getElementById('photo').src = photos[0].src;
-                document.getElementById('photo-text').innerText = photos[0].text;
+                photoImg.src = photos[0].s;
+                photoTxt.innerText = photos[0].t;
             }
         }
     </script>
