@@ -24,6 +24,15 @@
             width: 88%; max-width: 400px; border: 1.5px solid rgba(255, 255, 255, 0.3);
             z-index: 10; overflow-y: auto; max-height: 92vh; transition: all 0.5s;
         }
+        
+        /* تأثير الاهتزاز عند الخطأ */
+        .shake { animation: shake 0.5s linear; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
         .tree-icon { font-size: 55px; margin-bottom: 10px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         
@@ -61,7 +70,7 @@
     <div id="login-screen" class="container">
         <div class="tree-icon">🎄</div>
         <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
-        <h1>اكتبي كلمة السر (1111) ✨</h1>
+        <h1>اكتبي كلمة السر (تاريخ ميلادك) ✨</h1>
         <input type="tel" id="passInput" placeholder="الباسورد">
         <br>
         <button onclick="checkPass()">🔓 افتح الحكاية</button>
@@ -98,7 +107,8 @@
         }
         setInterval(createHeart, 400);
 
-        const correctPass = "1111";
+        // تم تعديل كلمة السر لتكون 1505 بناءً على طلبك
+        const correctPass = "1505";
         
         const photos = [
             { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5، بس مش هقولك اليوم، المفروض إنتي عارفاه! 😂❤️" },
@@ -113,13 +123,18 @@
         let currentPhotoIndex = 0;
 
         function checkPass() {
+            const container = document.getElementById('login-screen');
             const input = document.getElementById('passInput').value.trim();
+            
             if(input === correctPass) {
-                document.getElementById('login-screen').style.display = 'none';
+                container.style.display = 'none';
                 document.getElementById('story-screen').style.display = 'block';
                 document.getElementById('story-screen').classList.add('fade-in');
             } else { 
-                alert("كلمة السر غلط! ركزي يا توتة وجربي 1111"); 
+                // إضافة تأثير الاهتزاز عند الخطأ
+                container.classList.add('shake');
+                setTimeout(() => container.classList.remove('shake'), 500);
+                alert("كلمة السر غلط! ركزي يا توتة الباسورد هو تاريخ ميلادك 😉"); 
             }
         }
 
@@ -152,7 +167,7 @@
 
             if(currentPhotoIndex < photos.length) {
                 photoImg.classList.remove('fade-in');
-                void photoImg.offsetWidth; // Trigger reflow
+                void photoImg.offsetWidth; 
                 photoImg.src = photos[currentPhotoIndex].src;
                 photoImg.classList.add('fade-in');
                 
