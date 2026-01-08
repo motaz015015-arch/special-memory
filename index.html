@@ -15,11 +15,9 @@
         }
         @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
 
-        /* قلوب متساقطة */
         .heart { position: absolute; color: rgba(255, 255, 255, 0.6); animation: fall linear forwards; z-index: 1; pointer-events: none; }
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 
-        /* بريق النجوم */
         .sparkle { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkling 2s infinite; pointer-events: none; }
         @keyframes twinkling { 0% { opacity: 0; transform: scale(0); } 50% { opacity: 0.8; transform: scale(1); } 100% { opacity: 0; transform: scale(0); } }
 
@@ -96,15 +94,12 @@
     </div>
 
     <script>
-        // دالة إنشاء القلوب والبريق
         function createEffect(className, content) {
             const el = document.createElement('div');
             el.classList.add(className);
             if (content) el.innerHTML = content;
-            
             const size = Math.random() * 20 + 10;
             el.style.left = Math.random() * 100 + "vw";
-            
             if (className === 'sparkle') {
                 el.style.top = Math.random() * 100 + "vh";
                 el.style.width = size/4 + "px";
@@ -113,14 +108,13 @@
                 el.style.animationDuration = Math.random() * 3 + 3 + "s";
                 el.style.fontSize = size + "px";
             }
-            
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 5000);
         }
-
         setInterval(() => createEffect('heart', '❤️'), 400);
-        setInterval(() => createEffect('sparkle'), 150); // إضافة البريق
+        setInterval(() => createEffect('sparkle'), 150);
 
+        // تم إصلاح مصفوفة الباسورد لتعمل بشكل صحيح
         const validPasswords = ["1111", "1505"];
         
         const photos = [
@@ -140,6 +134,82 @@
 
         function checkPass() {
             const input = document.getElementById('passInput').value.trim();
-            if(validPasswords.includes(input)) {
+            // إصلاح الشرط ليعمل في كل المتصفحات
+            if (input === "1111" || input === "1505") {
                 document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('story-screen').style.display =
+                document.getElementById('story-screen').style.display = 'block';
+                document.getElementById('story-screen').classList.add('fade-in');
+            } else { 
+                alert("كلمة السر غلط! ركزي يا توتة"); 
+            }
+        }
+
+        function showGallery() {
+            document.getElementById('story-screen').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'block';
+            renderContent();
+        }
+
+        function typeWriter(text) {
+            clearTimeout(typeTimeout);
+            let i = 0;
+            const target = document.getElementById("mainText");
+            target.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    typeTimeout = setTimeout(type, 40);
+                }
+            }
+            type();
+        }
+
+        function renderContent() {
+            const wrapper = document.getElementById('mediaWrapper');
+            const photoProg = document.getElementById('photoProgress');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const item = photos[currentPhotoIndex];
+            
+            wrapper.innerHTML = "";
+            prevBtn.disabled = (currentPhotoIndex === 0);
+            nextBtn.innerText = (currentPhotoIndex === photos.length - 1) ? "إعادة من الأول 🔄" : "التالي ⮕";
+
+            if (item.isVideo) {
+                const video = document.createElement('video');
+                video.src = item.src;
+                video.controls = true;
+                video.autoplay = true;
+                wrapper.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.classList.add('fade-in');
+                wrapper.appendChild(img);
+            }
+
+            typeWriter(item.text);
+            photoProg.innerText = `العنصر ${currentPhotoIndex + 1} من ${photos.length}`;
+        }
+
+        function nextPhoto() {
+            if(currentPhotoIndex < photos.length - 1) {
+                currentPhotoIndex++;
+                renderContent();
+            } else {
+                alert("دي كانت رحلة حب حياتي.. وكل سنة وأنتي طيبة يا أغلى من عيني ❤️");
+                currentPhotoIndex = 0;
+                renderContent();
+            }
+        }
+
+        function prevPhoto() {
+            if(currentPhotoIndex > 0) {
+                currentPhotoIndex--;
+                renderContent();
+            }
+        }
+    </script>
+</body>
+</html>
