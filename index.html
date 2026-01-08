@@ -3,49 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفاجأة أم يونس ❤️</title>
+    <title>Special Gift</title>
     <style>
-        body { 
-            background: linear-gradient(135deg, #ff4e50, #f9d423); 
-            margin: 0; font-family: 'Arial', sans-serif; color: white;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
-        }
-        .card { 
-            background: white; padding: 25px; border-radius: 20px; 
-            width: 85%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            color: #333;
-        }
-        h2 { color: #d63031; margin-bottom: 15px; }
-        input { 
-            padding: 15px; border-radius: 10px; border: 2px solid #ff4e50; 
-            width: 85%; margin-bottom: 20px; text-align: center; font-size: 20px;
-        }
-        .btn { 
-            padding: 15px; border-radius: 10px; border: none; 
-            background: #ff4e50; color: white; font-size: 18px; font-weight: bold; 
-            width: 100%; cursor: pointer;
-        }
-        #gift-content { display: none; width: 100%; text-align: center; padding: 20px; }
+        body { background: #ff4e50; text-align: center; font-family: sans-serif; color: white; padding: 20px; }
+        .box { background: white; padding: 25px; border-radius: 15px; color: black; margin-top: 40px; }
+        input { padding: 15px; width: 85%; border: 2px solid #ff4e50; border-radius: 10px; font-size: 20px; margin-bottom: 20px; }
+        button { padding: 15px; background: #ff4e50; color: white; border: none; border-radius: 10px; font-size: 20px; width: 100%; cursor: pointer; }
         .slide { display: none; }
-        .slide.active { display: block; }
-        img { width: 100%; border-radius: 15px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .msg { font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        img { width: 100%; border-radius: 10px; margin-top: 15px; }
     </style>
 </head>
 <body>
-
-    <div id="login-page">
-        <div class="card">
-            <span style="font-size: 50px;">🍑</span>
-            <h2>Welcome Umm Yunus ❤️</h2>
-            <p>اكتبي كلمة السر (1111) للمفاجأة ✨</p>
-            <input type="number" id="passInput" placeholder="أدخل الرقم هنا">
-            <button class="btn" onclick="checkPass()">افتحي قلبك هنا 🔓</button>
+    <div id="login">
+        <div class="box">
+            <h2 style="color: #ff4e50;">Welcome Umm Yunus ❤️</h2>
+            <p>اكتبي كلمة السر (1111)</p>
+            <input type="tel" id="pInput" placeholder="1111">
+            <button onclick="check()">افتحي هنا 🔓</button>
         </div>
     </div>
 
-    <div id="gift-content">
-        <div class="slide active">
-            <h1 class="msg">كل سنة وأنتي طيبة يا ست الكل ❤️</h1>
+    <div id="content" style="display:none;">
+        <div id="s1" class="slide" style="display:block;">
+            <h1>كل سنة وأنتي طيبة ❤️</h1>
             <img src="ck1.jpg">
-            <p class="msg">تذكري أول مرة التقينا؟ كانت أجمل صدفة ✨
+            <button onclick="next(1,2)">التالي ➡️</button>
+        </div>
+        <div id="s2" class="slide">
+            <h1>أجمل ذكرياتنا ❤️</h1>
+            <img src="ck2.jpg">
+            <button onclick="next(2,3)">التالي ➡️</button>
+        </div>
+        <div id="s3" class="slide">
+            <h1>بحبك يا أم يونس ❤️</h1>
+            <img src="ck3.jpg">
+        </div>
+    </div>
+
+    <script>
+        function check() {
+            var p = document.getElementById('pInput').value.trim(); // trim بتشيل أي مسافات غلط
+            if (p == "1111") {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            } else { alert("الرقم غلط!"); }
+        }
+        function next(curr, nxt) {
+            document.getElementById('s'+curr).style.display = 'none';
+            document.getElementById('s'+nxt).style.display = 'block';
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
