@@ -48,7 +48,6 @@
         .img-wrapper { position: relative; margin-top: 15px; overflow: hidden; border-radius: 15px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); background: #000; display: flex; align-items: center; justify-content: center; min-height: 200px; }
         img, video { width: 100%; height: auto; max-height: 280px; object-fit: contain; display: block; }
         
-        /* تحسين صندوق النص لمنع اللخبطة */
         .photo-text { 
             margin-top: 18px; font-weight: 600; font-size: 17px; line-height: 1.7; 
             min-height: 90px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); 
@@ -67,7 +66,7 @@
     <div id="login-screen" class="container">
         <div class="tree-icon">🎄</div>
         <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
-        <h1>اكتبي كلمة السر (1111) ✨</h1>
+        <h1>فكري كلمة السر إيه وهتعرفي ✨</h1>
         <input type="tel" id="passInput" placeholder="الباسورد">
         <br>
         <button onclick="checkPass()">🔓 افتح الحكاية</button>
@@ -104,94 +103,9 @@
         }
         setInterval(createHeart, 400);
 
-        const correctPass = "1111";
+        // تم تغيير كلمة السر إلى 1505
+        const correctPass = "1505";
         
         const photos = [
             { src: "video.mp4", text: "واصفلك إيه ولا إيه.. ❤️", isVideo: true },
-            { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5، بس مش هقولك اليوم، المفروض إنتي عارفاه! 😂❤️" },
-            { src: "ck1.jpg", text: "توتة.. الاسم ده هو النغمة اللي قلبي بيطمن لما يسمعها، وأرق كلمة ممكن لساني ينطقها.. بحس إن كل الحنية اتجمعت في حروف اسمك، وكأن ربنا خلقه مخصوص عشان يكون أحلى اسم في حياتي ❤️" },
-            { src: "ck2.jpg", text: "يا فاطمة.. عارفة إني بحب كل حاجة فيكي، حتى عصبيتك اللي بتقفل ودنك عني دي! بتبقى شكلك زي الطفلة اللي زعلانة، وفي عز نرفزتك بكون أنا غرقان في تفاصيلك وبقول في سري: يا بختي إن النكدية دي هي حبيبتي 😂❤️" },
-            { src: "video1.mp4", text: "أنا عاوز أقولك إني مش بحبك زي ما عمر الشريف كان بيحب حمام.. أنا بحبك أكتر بكتير. حبك في قلبي مش مجرد ذكرى من فيلم قديم، ده واقع بعيشه كل يوم، وأنت بالنسبة لي مش بس الصديق أو الحبيب، أنت البهجة اللي بتلون حياتي زي أغاني زمان ❤️", isVideo: true },
-            { src: "ck3.jpg", text: "يا فاطمة.. كان نفسي الصورة دي تنطق عشان أقولك إن دي هي حياتي اللي بحلم بيها معاكي.. ❤️" },
-            { src: "ck4.jpg", text: "حضني دايماً هيكون هو بيتك وأمانك، والمكان اللي ترمي فيه كل تعبك وتطمني. حياتي معاكي مش هتبقى مجرد أيام بتعدي، هتبقى عبارة عن حضن واحد طويل بيجمعنا، ينسينا الدنيا ويطمن قلبي وقلبك ❤️" },
-            { src: "ck5.jpg", text: "يا فاطمة.. يونس هو الحلم اللي بيجمعنا، والوعد اللي هيخلينا نتخطى أي زعل.. إنتي الحلم، وأم الحلم ده ❤️" },
-            { src: "ck6.jpg", text: "يا توتة.. حبيت أختم بصورة أكتر فاكهة بتحبيها، عشان أقولك إن حياتي معاكي بقت بطعم الخوخ.. مسكرة بوجودك، وكلها حنية زيك ❤️" }
-        ];
-        
-        let currentPhotoIndex = 0;
-        let typeTimeout; // لحل مشكلة تداخل النصوص عند الضغط السريع
-
-        function checkPass() {
-            const input = document.getElementById('passInput').value.trim();
-            if(input === correctPass) {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('story-screen').style.display = 'block';
-                document.getElementById('story-screen').classList.add('fade-in');
-            } else { 
-                alert("كلمة السر غلط! ركزي يا توتة وجربي 1111"); 
-            }
-        }
-
-        function showGallery() {
-            document.getElementById('story-screen').style.display = 'none';
-            document.getElementById('gallery-screen').style.display = 'block';
-            document.getElementById('gallery-screen').classList.add('fade-in');
-            renderContent();
-        }
-
-        function typeWriter(text) {
-            clearTimeout(typeTimeout); // إيقاف الكتابة السابقة
-            let i = 0;
-            const speed = 40; 
-            const target = document.getElementById("mainText");
-            target.innerHTML = "";
-            function type() {
-                if (i < text.length) {
-                    target.innerHTML += text.charAt(i);
-                    i++;
-                    typeTimeout = setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
-        function renderContent() {
-            const wrapper = document.getElementById('mediaWrapper');
-            const photoProg = document.getElementById('photoProgress');
-            const currentItem = photos[currentPhotoIndex];
-            
-            wrapper.innerHTML = ""; 
-
-            if (currentItem.isVideo) {
-                const video = document.createElement('video');
-                video.src = currentItem.src;
-                video.controls = true;
-                video.autoplay = true;
-                wrapper.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.src = currentItem.src;
-                img.classList.add('fade-in');
-                wrapper.appendChild(img);
-            }
-
-            typeWriter(currentItem.text);
-            photoProg.innerText = `العنصر ${currentPhotoIndex + 1} من ${photos.length}`;
-        }
-
-        function nextPhoto() {
-            currentPhotoIndex++;
-            if(currentPhotoIndex < photos.length) {
-                renderContent();
-                if(currentPhotoIndex === photos.length - 1) {
-                    for(let i=0; i<30; i++) { setTimeout(createHeart, i*80); }
-                }
-            } else {
-                alert("دي كانت ذكرياتنا.. وكل سنة وأنتي طيبة يا أغلى من عيني ❤️");
-                currentPhotoIndex = 0;
-                renderContent();
-            }
-        }
-    </script>
-</body>
-</html>
+            { src: "ck.jpg
