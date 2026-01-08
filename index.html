@@ -3,70 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بمناسبة السنة الجديدة</title>
+    <title>بمناسبة السنة الجديدة 2026</title>
     <style>
         body {
             margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #d4001d, #800000); 
             color: white; display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden; text-align: center;
+            height: 100vh; overflow: hidden; text-align: center; position: relative;
         }
+        /* تأثير القلوب */
+        .heart {
+            position: absolute; color: rgba(255, 255, 255, 0.5);
+            animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(100vh); } }
+
         .container {
-            background: rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
-            width: 85%; max-width: 380px; border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15); padding: 25px; border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); backdrop-filter: blur(12px);
+            width: 85%; max-width: 380px; border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 10;
         }
-        .tree-icon { font-size: 50px; margin-bottom: 10px; }
-        .heart-icon { color: #ff4d4d; font-size: 30px; }
-        h1 { font-size: 22px; margin: 15px 0; }
+        .tree-icon { font-size: 50px; margin-bottom: 10px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
         input[type="tel"] {
             padding: 12px; width: 85%; border-radius: 25px; border: 2px solid white;
             background: transparent; color: white; text-align: center; font-size: 18px;
             margin-bottom: 20px; outline: none;
         }
         button {
-            padding: 12px 35px; background-color: white; border: none; color: #d4001d;
+            padding: 12px 35px; background: white; border: none; color: #d4001d;
             border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 16px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3); transition: 0.3s;
         }
+        button:hover { background: #ff4d4d; color: white; transform: scale(1.05); }
+
         #story-screen, #gallery-screen { display: none; }
         .fade-in { animation: fadeIn 0.8s forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 2px solid white; height: auto; }
+        
+        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .days-counter { font-size: 14px; margin-top: 10px; opacity: 0.9; }
     </style>
 </head>
 <body>
 
     <div id="login-screen" class="container">
         <div class="tree-icon">🎄</div>
-        <div class="heart-icon">❤️ Welcome</div>
+        <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
         <h1>اكتبي كلمة السر (1111) ✨</h1>
-        <input type="tel" id="passInput" placeholder="أدخلي الرقم هنا...">
+        <input type="tel" id="passInput" placeholder="الباسورد (1111)">
         <br>
         <button onclick="checkPass()">🔒 افتح الحكاية</button>
     </div>
 
     <div id="story-screen" class="container">
         <h1 style="color: #ff4d4d;">حبيبتي أم يونس ❤️</h1>
-        <p>من أول لحظة شفتك فيها وأنا حسيت إن في حاجة مختلفة ❤️</p>
+        <p>من أول لحظة شفتك فيها وأنا حسيت إن في حاجة مختلفة ✨</p>
+        <div class="days-counter" id="loveDays">نحن معاً منذ أيام كثيرة ❤️</div>
+        <br>
         <button onclick="showGallery()">📸 نبدأ الذكريات</button>
     </div>
 
     <div id="gallery-screen" class="container">
-        <h1>ذكرياتنا ❤️</h1>
-        <img id="photo" src="ck1.jpg" alt="Memory">
-        <p id="photo_text_display" style="margin-top:15px; font-weight:bold;">أول يوم عرفنا بعض</p>
-        <button onclick="nextPhoto()" style="margin-top: 15px;">التالي ⮕</button>
+        <h2 style="margin-top:0;">ذكرياتنا ❤️</h2>
+        <img id="mainPhoto" src="ck1.jpg">
+        <p id="mainText" style="margin-top:15px; font-weight:bold; font-size: 18px;">أول يوم عرفنا بعض</p>
+        <button onclick="nextPhoto()">التالي ⮕</button>
     </div>
 
     <script>
-        const correctPass = "1111"; 
-        
+        // تأثير القلوب العشوائية
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        const correctPass = "1111";
         const photos = [
-            { s: "ck1.jpg", t: "أول يوم عرفنا بعض" },
-            { s: "ck2.jpg", t: "حلمنا اللي حلمناه" },
-            { s: "ck3.jpg", t: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
+            { src: "ck1.jpg", text: "أول يوم عرفنا بعض" },
+            { src: "ck2.jpg", text: "حلمنا اللي حلمناه" },
+            { src: "ck3.jpg", text: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
         ];
-        
         let currentPhotoIndex = 0;
 
         function checkPass() {
@@ -75,7 +101,7 @@
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('story-screen').style.display = 'block';
                 document.getElementById('story-screen').classList.add('fade-in');
-            } else { alert("كلمة السر غلط!"); }
+            } else { alert("كلمة السر غلط! جربي 1111"); }
         }
 
         function showGallery() {
@@ -86,17 +112,16 @@
 
         function nextPhoto() {
             currentPhotoIndex++;
-            const photoImg = document.getElementById('photo');
-            const photoTxt = document.getElementById('photo_text_display');
-
+            const photoImg = document.getElementById('mainPhoto');
+            const photoTxt = document.getElementById('mainText');
             if(currentPhotoIndex < photos.length) {
-                photoImg.src = photos[currentPhotoIndex].s;
-                photoTxt.innerText = photos[currentPhotoIndex].t;
+                photoImg.src = photos[currentPhotoIndex].src;
+                photoTxt.innerText = photos[currentPhotoIndex].text;
             } else {
-                alert("دي كانت ذكرياتنا.. والقادم أجمل ❤️");
-                currentPhotoIndex = 0; 
-                photoImg.src = photos[0].s;
-                photoTxt.innerText = photos[0].t;
+                alert("دي كانت ذكرياتنا.. والقادم أجمل سوا ❤️");
+                currentPhotoIndex = 0;
+                photoImg.src = photos[0].src;
+                photoTxt.innerText = photos[0].text;
             }
         }
     </script>
