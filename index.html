@@ -98,6 +98,7 @@
         }
         setInterval(createHeart, 400);
 
+        // تم تغيير كلمة السر هنا إلى 1505
         const correctPass = "1505";
         
         const photos = [
@@ -152,12 +153,12 @@
 
             if(currentPhotoIndex < photos.length) {
                 photoImg.classList.remove('fade-in');
-                void photoImg.offsetWidth; // Trigger reflow
+                void photoImg.offsetWidth; 
                 photoImg.src = photos[currentPhotoIndex].src;
                 photoImg.classList.add('fade-in');
                 
                 typeWriter(photos[currentPhotoIndex].text);
-                photoProg.innerText = `الصورة ${currentPhotoIndex + 1} من ${photos.length}`;
+                photoProg.innerText = "الصورة " + (currentPhotoIndex + 1) + " من " + photos.length;
                 
                 if(currentPhotoIndex === photos.length - 1) {
                     for(let i=0; i<30; i++) { setTimeout(createHeart, i*80); }
@@ -167,7 +168,7 @@
                 currentPhotoIndex = 0;
                 photoImg.src = photos[0].src;
                 typeWriter(photos[0].text);
-                photoProg.innerText = `الصورة 1 من ${photos.length}`;
+                photoProg.innerText = "الصورة 1 من " + photos.length;
             }
         }
     </script>
