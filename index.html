@@ -48,7 +48,13 @@
         .img-wrapper { position: relative; margin-top: 15px; overflow: hidden; border-radius: 15px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.4); background: #000; display: flex; align-items: center; justify-content: center; min-height: 200px; }
         img, video { width: 100%; height: auto; max-height: 280px; object-fit: contain; display: block; }
         
-        .photo-text { margin-top: 18px; font-weight: 600; font-size: 17px; line-height: 1.7; min-height: 90px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        /* تحسين صندوق النص لمنع اللخبطة */
+        .photo-text { 
+            margin-top: 18px; font-weight: 600; font-size: 17px; line-height: 1.7; 
+            min-height: 90px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); 
+            direction: rtl; text-align: right; white-space: pre-wrap; 
+        }
+        
         .progress { font-size: 13px; margin-top: 12px; opacity: 0.9; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 15px; }
         .floating-heart { position: fixed; bottom: 20px; right: 20px; font-size: 30px; animation: heartbeat 1.5s infinite; z-index: 100; }
         @keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
@@ -79,7 +85,7 @@
             <img id="mainPhoto" src="ck.jpg">
         </div>
         <p id="mainText" class="photo-text"></p>
-        <div id="photoProgress" class="progress">العنصر 1 من 8</div>
+        <div id="photoProgress" class="progress">العنصر 1 من 9</div>
         <br>
         <button onclick="nextPhoto()" style="margin-top:10px;">التالي ⮕</button>
     </div>
@@ -100,12 +106,12 @@
 
         const correctPass = "1111";
         
-        // تم إضافة الفيديو في بداية المصفوفة قبل ck.jpg
         const photos = [
             { src: "video.mp4", text: "واصفلك إيه ولا إيه.. ❤️", isVideo: true },
             { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5، بس مش هقولك اليوم، المفروض إنتي عارفاه! 😂❤️" },
             { src: "ck1.jpg", text: "توتة.. الاسم ده هو النغمة اللي قلبي بيطمن لما يسمعها، وأرق كلمة ممكن لساني ينطقها.. بحس إن كل الحنية اتجمعت في حروف اسمك، وكأن ربنا خلقه مخصوص عشان يكون أحلى اسم في حياتي ❤️" },
             { src: "ck2.jpg", text: "يا فاطمة.. عارفة إني بحب كل حاجة فيكي، حتى عصبيتك اللي بتقفل ودنك عني دي! بتبقى شكلك زي الطفلة اللي زعلانة، وفي عز نرفزتك بكون أنا غرقان في تفاصيلك وبقول في سري: يا بختي إن النكدية دي هي حبيبتي 😂❤️" },
+            { src: "video1.mp4", text: "أنا عاوز أقولك إني مش بحبك زي ما عمر الشريف كان بيحب حمام.. أنا بحبك أكتر بكتير. حبك في قلبي مش مجرد ذكرى من فيلم قديم، ده واقع بعيشه كل يوم، وأنت بالنسبة لي مش بس الصديق أو الحبيب، أنت البهجة اللي بتلون حياتي زي أغاني زمان ❤️", isVideo: true },
             { src: "ck3.jpg", text: "يا فاطمة.. كان نفسي الصورة دي تنطق عشان أقولك إن دي هي حياتي اللي بحلم بيها معاكي.. ❤️" },
             { src: "ck4.jpg", text: "حضني دايماً هيكون هو بيتك وأمانك، والمكان اللي ترمي فيه كل تعبك وتطمني. حياتي معاكي مش هتبقى مجرد أيام بتعدي، هتبقى عبارة عن حضن واحد طويل بيجمعنا، ينسينا الدنيا ويطمن قلبي وقلبك ❤️" },
             { src: "ck5.jpg", text: "يا فاطمة.. يونس هو الحلم اللي بيجمعنا، والوعد اللي هيخلينا نتخطى أي زعل.. إنتي الحلم، وأم الحلم ده ❤️" },
@@ -113,6 +119,7 @@
         ];
         
         let currentPhotoIndex = 0;
+        let typeTimeout; // لحل مشكلة تداخل النصوص عند الضغط السريع
 
         function checkPass() {
             const input = document.getElementById('passInput').value.trim();
@@ -133,6 +140,7 @@
         }
 
         function typeWriter(text) {
+            clearTimeout(typeTimeout); // إيقاف الكتابة السابقة
             let i = 0;
             const speed = 40; 
             const target = document.getElementById("mainText");
@@ -141,7 +149,7 @@
                 if (i < text.length) {
                     target.innerHTML += text.charAt(i);
                     i++;
-                    setTimeout(type, speed);
+                    typeTimeout = setTimeout(type, speed);
                 }
             }
             type();
@@ -152,7 +160,7 @@
             const photoProg = document.getElementById('photoProgress');
             const currentItem = photos[currentPhotoIndex];
             
-            wrapper.innerHTML = ""; // مسح المحتوى القديم
+            wrapper.innerHTML = ""; 
 
             if (currentItem.isVideo) {
                 const video = document.createElement('video');
