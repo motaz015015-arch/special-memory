@@ -3,55 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Gift</title>
+    <title>بمناسبة السنة الجديدة</title>
     <style>
-        body { background: #ff4e50; text-align: center; font-family: sans-serif; color: white; padding: 20px; }
-        .box { background: white; padding: 25px; border-radius: 15px; color: black; margin-top: 40px; }
-        input { padding: 15px; width: 85%; border: 2px solid #ff4e50; border-radius: 10px; font-size: 20px; margin-bottom: 20px; }
-        button { padding: 15px; background: #ff4e50; color: white; border: none; border-radius: 10px; font-size: 20px; width: 100%; cursor: pointer; }
-        .slide { display: none; }
-        img { width: 100%; border-radius: 10px; margin-top: 15px; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d4001d, #800000); 
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            width: 85%;
+            max-width: 380px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tree-icon { font-size: 50px; margin-bottom: 10px; }
+        .heart-icon { color: #ff4d4d; font-size: 30px; }
+        
+        h1 { font-size: 22px; margin: 15px 0; }
+
+        input[type="tel"] {
+            padding: 12px;
+            width: 85%;
+            border-radius: 25px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        input::placeholder { color: rgba(255, 255, 255, 0.7); }
+
+        button {
+            padding: 12px 35px;
+            background-color: white;
+            border: none;
+            color: #d4001d;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        #story-screen, #gallery-screen { display: none; }
+
+        .fade-in { animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 2px solid white; height: auto; object-fit: cover; }
     </style>
 </head>
 <body>
-    <div id="login">
-        <div class="box">
-            <h2 style="color: #ff4e50;">Welcome Umm Yunus ❤️</h2>
-            <p>اكتبي كلمة السر (1111)</p>
-            <input type="tel" id="pInput" placeholder="1111">
-            <button onclick="check()">افتحي هنا 🔓</button>
-        </div>
+
+    <div id="login-screen" class="container">
+        <div class="tree-icon">🎄</div>
+        <div class="heart-icon">❤️ Welcome</div>
+        <h1>اكتبي كلمة السر (1111) علشان تبدأ حكاية حب لا تُنسى ✨</h1>
+        <input type="tel" id="passInput" placeholder="اكتبي الباسورد هنا...">
+        <br>
+        <button onclick="checkPass()">🔒 افتح الحكاية</button>
     </div>
 
-    <div id="content" style="display:none;">
-        <div id="s1" class="slide" style="display:block;">
-            <h1>كل سنة وأنتي طيبة ❤️</h1>
-            <img src="ck1.jpg">
-            <button onclick="next(1,2)">التالي ➡️</button>
-        </div>
-        <div id="s2" class="slide">
-            <h1>أجمل ذكرياتنا ❤️</h1>
-            <img src="ck2.jpg">
-            <button onclick="next(2,3)">التالي ➡️</button>
-        </div>
-        <div id="s3" class="slide">
-            <h1>بحبك يا أم يونس ❤️</h1>
-            <img src="ck3.jpg">
-        </div>
+    <div id="story-screen" class="container">
+        <h1 style="color: #ff4d4d;">حبيبتي أم يونس ❤️</h1>
+        <p>من أول لحظة شفتك فيها وأنا حسيت إن في حاجة مختلفة ✨ حسيت إن قلبي لقى اللي كان بيدور عليه من زمان ❤️</p>
+        <button onclick="showGallery()">📸 نبدأ الذكريات</button>
+    </div>
+
+    <div id="gallery-screen" class="container">
+        <h1>ذكرياتنا ❤️</h1>
+        <img id="photo" src="ck1.jpg" alt="Memory">
+        <p id="photo-text" style="margin-top:15px; font-weight:bold;">أول يوم عرفنا بعض</p>
+        <button onclick="nextPhoto()" style="margin-top: 15px;">التالي ⮕</button>
     </div>
 
     <script>
-        function check() {
-            var p = document.getElementById('pInput').value.trim(); // trim بتشيل أي مسافات غلط
-            if (p == "1111") {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-            } else { alert("الرقم غلط!"); }
+        // كلمة السر المتفق عليها
+        const correctPass = "1111"; 
+
+        // بيانات الصور المصححة
+        const photos = [
+            { src: "ck1.jpg", text: "أول يوم عرفنا بعض" },
+            { src: "ck2.jpg", text: "حلمنا اللي حلمناه" },
+            { src: "ck3.jpg", text: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
+        ];
+        
+        let currentPhotoIndex = 0;
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value.trim();
+            if(input === correctPass) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('story-screen').style.display = 'block';
+                document.getElementById('story-screen').classList.add('fade-in');
+            } else {
+                alert("كلمة السر خطأ! جرب 1111");
+            }
         }
-        function next(curr, nxt) {
-            document.getElementById('s'+curr).style.display = 'none';
-            document.getElementById('s'+nxt).style.display = 'block';
-            window.scrollTo(0,0);
+
+        function showGallery() {
+            document.getElementById('story-screen').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'block';
+            document.getElementById('gallery-screen').classList.add('fade-in');
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex++;
+            if(currentPhotoIndex < photos.length) {
+                document.getElementById('photo').src = photos[currentPhotoIndex].src;
+                document.getElementById('photo-text').innerText = photos[currentPhotoIndex].text;
+            } else {
+                alert("دي كانت بعض ذكرياتنا.. والقادم أجمل سوا ❤️");
+                currentPhotoIndex = 0; 
+                document.getElementById('photo').src = photos[0].src;
+                document.getElementById('photo-text').innerText = photos[0].text;
+            }
         }
     </script>
 </body>
