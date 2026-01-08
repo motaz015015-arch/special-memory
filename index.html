@@ -58,158 +58,4 @@
         }
         
         .progress { font-size: 13px; margin-top: 12px; background: rgba(0,0,0,0.2); display: inline-block; padding: 4px 12px; border-radius: 15px; }
-        .floating-heart { position: fixed; bottom: 20px; right: 20px; font-size: 30px; animation: heartbeat 1.5s infinite; z-index: 100; }
-        @keyframes heartbeat { 0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
-    </style>
-</head>
-<body>
-
-    <div class="floating-heart">💖</div>
-
-    <div id="login-screen" class="container">
-        <div class="tree-icon">🎄</div>
-        <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
-        <h1>اكتبي كلمة السر ✨</h1>
-        <input type="tel" id="passInput" placeholder="الباسورد">
-        <br>
-        <button onclick="checkPass()">🔓 افتح الحكاية</button>
-    </div>
-
-    <div id="story-screen" class="container">
-        <h1 style="color: #ffcccc;">حبيبتي فاطمة ❤️</h1>
-        <p style="font-size: 18px;">كل سنة وإحنا سوا.. حبيت أعملك هدية لذكرى توريها ليونس ❤️</p>
-        <button onclick="showGallery()">📸 نبدأ رحلة حب حياتي</button>
-    </div>
-
-    <div id="gallery-screen" class="container">
-        <h2 style="margin-top:0; color: #ffcccc;">حب حياتي ❤️</h2>
-        <div class="img-wrapper" id="mediaWrapper"></div>
-        <p id="mainText" class="photo-text"></p>
-        <div id="photoProgress" class="progress"></div>
-        <br>
-        <div class="btn-group">
-            <button id="prevBtn" onclick="prevPhoto()">⬅ السابق</button>
-            <button id="nextBtn" onclick="nextPhoto()">التالي ⮕</button>
-        </div>
-    </div>
-
-    <script>
-        function createEffect(className, content) {
-            const el = document.createElement('div');
-            el.classList.add(className);
-            if (content) el.innerHTML = content;
-            const size = Math.random() * 20 + 10;
-            el.style.left = Math.random() * 100 + "vw";
-            if (className === 'sparkle') {
-                el.style.top = Math.random() * 100 + "vh";
-                el.style.width = size/4 + "px";
-                el.style.height = size/4 + "px";
-            } else {
-                el.style.animationDuration = Math.random() * 3 + 3 + "s";
-                el.style.fontSize = size + "px";
-            }
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 5000);
-        }
-        setInterval(() => createEffect('heart', '❤️'), 400);
-        setInterval(() => createEffect('sparkle'), 150);
-
-        // تم إصلاح مصفوفة الباسورد لتعمل بشكل صحيح
-        const validPasswords = ["1111", "1505"];
-        
-        const photos = [
-            { src: "video.mp4", text: "واصفلك إيه ولا إيه.. ❤️", isVideo: true },
-            { src: "ck.jpg", text: "يا فاطمة.. أنا بشكر ربنا والحظ اللي جمعني بيكي، وحطيت الصورة دي عشان أقولك أوعي تكوني نسيتي اليوم اللي اتكلمنا فيه.. هو كان في شهر 5! 😂❤️" },
-            { src: "ck1.jpg", text: "توتة.. الاسم ده هو النغمة اللي قلبي بيطمن لما يسمعها.. بحس إن كل الحنية اتجمعت في حروف اسمك ❤️" },
-            { src: "ck2.jpg", text: "يا فاطمة.. عارفة إني بحب كل حاجة فيكي، حتى عصبيتك! بتبقى شكلك زي الطفلة اللي زعلانة، وبقول في سري: يا بختي بيكي 😂❤️" },
-            { src: "video1.mp4", text: "أنا بحبك أكتر بكتير من أي كلام ممكن يتقال.. أنت البهجة اللي بتلون حياتي ❤️", isVideo: true },
-            { src: "ck3.jpg", text: "يا فاطمة.. كان نفسي الصورة دي تنطق عشان أقولك إن دي هي حياتي اللي بحلم بيها معاكي.. ❤️" },
-            { src: "ck4.jpg", text: "حضني دايماً هيكون هو بيتك وأمانك، والمكان اللي ترمي فيه كل تعبك وتطمني ❤️" },
-            { src: "ck5.jpg", text: "يا فاطمة.. يونس هو الحلم اللي بيجمعنا، والوعد اللي هيخلينا نتخطى أي زعل.. إنتي الحلم، وأم الحلم ده ❤️" },
-            { src: "ck6.jpg", text: "يا توتة.. حبيت أختم بصورة أكتر فاكهة بتحبيها، عشان أقولك إن حياتي معاكي بقت بطعم الخوخ.. مسكرة بوجودك ❤️" }
-        ];
-        
-        let currentPhotoIndex = 0;
-        let typeTimeout;
-
-        function checkPass() {
-            const input = document.getElementById('passInput').value.trim();
-            // إصلاح الشرط ليعمل في كل المتصفحات
-            if (input === "1111" || input === "1505") {
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('story-screen').style.display = 'block';
-                document.getElementById('story-screen').classList.add('fade-in');
-            } else { 
-                alert("كلمة السر غلط! ركزي يا توتة"); 
-            }
-        }
-
-        function showGallery() {
-            document.getElementById('story-screen').style.display = 'none';
-            document.getElementById('gallery-screen').style.display = 'block';
-            renderContent();
-        }
-
-        function typeWriter(text) {
-            clearTimeout(typeTimeout);
-            let i = 0;
-            const target = document.getElementById("mainText");
-            target.innerHTML = "";
-            function type() {
-                if (i < text.length) {
-                    target.innerHTML += text.charAt(i);
-                    i++;
-                    typeTimeout = setTimeout(type, 40);
-                }
-            }
-            type();
-        }
-
-        function renderContent() {
-            const wrapper = document.getElementById('mediaWrapper');
-            const photoProg = document.getElementById('photoProgress');
-            const nextBtn = document.getElementById('nextBtn');
-            const prevBtn = document.getElementById('prevBtn');
-            const item = photos[currentPhotoIndex];
-            
-            wrapper.innerHTML = "";
-            prevBtn.disabled = (currentPhotoIndex === 0);
-            nextBtn.innerText = (currentPhotoIndex === photos.length - 1) ? "إعادة من الأول 🔄" : "التالي ⮕";
-
-            if (item.isVideo) {
-                const video = document.createElement('video');
-                video.src = item.src;
-                video.controls = true;
-                video.autoplay = true;
-                wrapper.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.src = item.src;
-                img.classList.add('fade-in');
-                wrapper.appendChild(img);
-            }
-
-            typeWriter(item.text);
-            photoProg.innerText = `العنصر ${currentPhotoIndex + 1} من ${photos.length}`;
-        }
-
-        function nextPhoto() {
-            if(currentPhotoIndex < photos.length - 1) {
-                currentPhotoIndex++;
-                renderContent();
-            } else {
-                alert("دي كانت رحلة حب حياتي.. وكل سنة وأنتي طيبة يا أغلى من عيني ❤️");
-                currentPhotoIndex = 0;
-                renderContent();
-            }
-        }
-
-        function prevPhoto() {
-            if(currentPhotoIndex > 0) {
-                currentPhotoIndex--;
-                renderContent();
-            }
-        }
-    </script>
-</body>
-</html>
+        .floating-heart { position: fixed; bottom: 20px; right: 20px; font-size:
