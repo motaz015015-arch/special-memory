@@ -54,18 +54,17 @@
     <div id="gallery-screen" class="container">
         <h1>ذكرياتنا ❤️</h1>
         <img id="photo" src="ck1.jpg" alt="Memory">
-        <p id="photoText" style="margin-top:15px; font-weight:bold;">أول يوم عرفنا بعض</p>
+        <p id="photo_text_display" style="margin-top:15px; font-weight:bold;">أول يوم عرفنا بعض</p>
         <button onclick="nextPhoto()" style="margin-top: 15px;">التالي ⮕</button>
     </div>
 
     <script>
         const correctPass = "1111"; 
         
-        // المصفوفة المصلحة بالكامل
         const photos = [
-            { src: "ck1.jpg", text: "أول يوم عرفنا بعض" },
-            { src: "ck2.jpg", text: "حلمنا اللي حلمناه" },
-            { src: "ck3.jpg", text: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
+            { s: "ck1.jpg", t: "أول يوم عرفنا بعض" },
+            { s: "ck2.jpg", t: "حلمنا اللي حلمناه" },
+            { s: "ck3.jpg", t: "أكتر حاجة بتحبيها الخوخ يا خوخاية" }
         ];
         
         let currentPhotoIndex = 0;
@@ -87,16 +86,17 @@
 
         function nextPhoto() {
             currentPhotoIndex++;
-            
-            // التأكد من أننا لم نتجاوز عدد الصور
-            if (currentPhotoIndex < photos.length) {
-                document.getElementById('photo').src = photos[currentPhotoIndex].src;
-                document.getElementById('photoText').innerText = photos[currentPhotoIndex].text;
+            const photoImg = document.getElementById('photo');
+            const photoTxt = document.getElementById('photo_text_display');
+
+            if(currentPhotoIndex < photos.length) {
+                photoImg.src = photos[currentPhotoIndex].s;
+                photoTxt.innerText = photos[currentPhotoIndex].t;
             } else {
                 alert("دي كانت ذكرياتنا.. والقادم أجمل ❤️");
-                currentPhotoIndex = 0; // العودة للصورة الأولى
-                document.getElementById('photo').src = photos[0].src;
-                document.getElementById('photoText').innerText = photos[0].text;
+                currentPhotoIndex = 0; 
+                photoImg.src = photos[0].s;
+                photoTxt.innerText = photos[0].t;
             }
         }
     </script>
