@@ -66,8 +66,8 @@
     <div id="login-screen" class="container">
         <div class="tree-icon">🎄</div>
         <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">❤️ Welcome Umm Yunus</div>
-        <h1>فكري كلمة السر إيه وهتعرفي ✨</h1>
-        <input type="tel" id="passInput" placeholder="الباسورد">
+        <h1>الباسورد هو (أجمل تاريخ في عمري).. اليوم اللي الدنيا نورت فيه بوجودك ومستحيل يتكرر 😉 ✨</h1>
+        <input type="tel" id="passInput" placeholder="اكتبي الباسورد هنا..">
         <br>
         <button onclick="checkPass()">🔓 افتح الحكاية</button>
     </div>
@@ -103,9 +103,19 @@
         }
         setInterval(createHeart, 400);
 
-        // تم تغيير كلمة السر إلى 1505
-        const correctPass = "1505";
-        
+        // الباسورد هو 1505 مع رسالة الخطأ المطلوبة
+        function checkPass() {
+            const input = document.getElementById('passInput').value.trim();
+            const correctPass = "1505"; 
+
+            if(input === correctPass) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('story-screen').style.display = 'block';
+                document.getElementById('story-screen').classList.add('fade-in');
+            } else { 
+                alert("كلمة السر غلط! ركزي يا توتة وجربي 1505"); 
+            }
+        }
+
         const photos = [
-            { src: "video.mp4", text: "واصفلك إيه ولا إيه.. ❤️", isVideo: true },
-            { src: "ck.jpg
+            { src: "video
