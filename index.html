@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حكاية أم يونس - 2026</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* مزيج بين الأحمر الرومانسي ولون الخوخ */
+            background: linear-gradient(135deg, #d4001d, #ff8c69); 
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            width: 85%;
+            max-width: 380px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .peach-icon { font-size: 50px; margin-bottom: 10px; }
+        .heart-icon { 
+            color: #ff4d4d; 
+            font-size: 24px; 
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        h1 { font-size: 20px; margin: 15px 0; line-height: 1.5; }
+
+        input[type="password"] {
+            padding: 12px;
+            width: 85%;
+            border-radius: 25px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 35px;
+            background-color: white;
+            border: none;
+            color: #d4001d;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        #story-screen, #gallery-screen { display: none; }
+
+        .fade-in { animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; margin-top: 15px; border: 2px solid white; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen" class="container">
+        <div class="peach-icon">🍑</div>
+        <div class="heart-icon">❤️ Welcome Umm Yunus</div>
+        <h1>اكتبي كلمة السر يا أم يونس علشان نبدأ السنة الجديدة ✨</h1>
+        <input type="password" id="passInput" placeholder="كلمة السر (1505)" onkeypress="handleKeyPress(event)">
+        <br>
+        <button onclick="checkPass()">🔒 افتحي قلبك هنا</button>
+    </div>
+
+    <div id="story-screen" class="container">
+        <h1 style="color: #ffffff;">حبيبتي المجنونة اللي دماغها ناشف ❤️</h1>
+        <p>عارف إنك عنيدة بس بموت فيكي.. وعارف إنك بتحبي الخوخ بس أنا اللي بحبك أكتر 🍑✨</p>
+        <p>ربنا يرزقنا بـ "يونس" وتكوني أحلى أم في الدنيا ❤️</p>
+        <button onclick="showGallery()">📸 شوفي ذكرياتنا</button>
+    </div>
+
+    <div id="gallery-screen" class="container">
+        <h1>ذكرياتنا يا ست البنات ❤️</h1>
+        <img id="photo" src="ck1.jpg" alt="Memory">
+        <p id="photo-text" style="margin-top:15px; font-weight:bold;">فاكرة أول يوم كلمتيني فيه؟ كان يوم جنة ❤️</p>
+        <button onclick="nextPhoto()" style="margin-top: 15px;">التالي ⮕</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const correctPass = "1505";
+
+        const photos = [
+            { src: "ck1.jpg", text: "فاكرة أول يوم كلمتيني فيه؟ كان يوم جنة ❤️" },
+            { src: "ck2.jpg", text: "أكتر حاجة نفسي أحققهالك وأشوف يونس في حضنك ✨" },
+            { src: "ck3.jpg", text: "يا أحلى خوخاية في حياتي.. كل سنة وإحنا مع بعض 🍑" }
+        ];
+        let currentPhotoIndex = 0;
+
+        function handleKeyPress(e) {
+            if (e.key === "Enter") { checkPass(); }
+        }
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            if(input === correctPass) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('story-screen').style.display = 'block';
+                document.getElementById('story-screen').classList.add('fade-in');
+                document.getElementById('bgMusic').play().catch(() => {});
+            } else {
+                alert("كلمة السر غلط! معقولة نسيتي يومنا؟ (1505)");
